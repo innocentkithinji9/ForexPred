@@ -1,6 +1,4 @@
-'''
 
-'''
 
 import matplotlib
 import matplotlib.pyplot as plt
@@ -44,15 +42,15 @@ def patternStorage():
     comparing success rates.'''
 
     startTime = time.time()
-    
-    
+
+
     x = len(avgLine)-30
     y = 31
     currentStance = 'none'
-    
+
     while y < x:
         pattern = []
-        
+
         p1 = percentChange(avgLine[y-30], avgLine[y-29])
         p2 = percentChange(avgLine[y-30], avgLine[y-28])
         p3 = percentChange(avgLine[y-30], avgLine[y-27])
@@ -63,7 +61,7 @@ def patternStorage():
         p8 = percentChange(avgLine[y-30], avgLine[y-22])
         p9 = percentChange(avgLine[y-30], avgLine[y-21])
         p10= percentChange(avgLine[y-30], avgLine[y-20])
-		
+
         p11 = percentChange(avgLine[y-30], avgLine[y-19])
         p12 = percentChange(avgLine[y-30], avgLine[y-18])
         p13 = percentChange(avgLine[y-30], avgLine[y-17])
@@ -74,7 +72,7 @@ def patternStorage():
         p18 = percentChange(avgLine[y-30], avgLine[y-12])
         p19 = percentChange(avgLine[y-30], avgLine[y-11])
         p20= percentChange(avgLine[y-30], avgLine[y-10])
-		
+
         p21 = percentChange(avgLine[y-30], avgLine[y-9])
         p22 = percentChange(avgLine[y-30], avgLine[y-8])
         p23 = percentChange(avgLine[y-30], avgLine[y-7])
@@ -142,7 +140,7 @@ def patternStorage():
 
         patternAr.append(pattern)
         performanceAr.append(futureOutcome)
-        
+
         y+=1
 
     endTime = time.time()
@@ -154,7 +152,7 @@ def patternStorage():
 def currentPattern():
     mostRecentPoint = avgLine[-1]
 
-    
+
 
     cp1 = percentChange(avgLine[-31],avgLine[-30])
     cp2 = percentChange(avgLine[-31],avgLine[-29])
@@ -166,8 +164,8 @@ def currentPattern():
     cp8 = percentChange(avgLine[-31],avgLine[-23])
     cp9 = percentChange(avgLine[-31],avgLine[-22])
     cp10= percentChange(avgLine[-31],avgLine[-21])
-	
-	
+
+
     cp11 = percentChange(avgLine[-31],avgLine[-20])
     cp12 = percentChange(avgLine[-31],avgLine[-19])
     cp13 = percentChange(avgLine[-31],avgLine[-18])
@@ -178,7 +176,7 @@ def currentPattern():
     cp18 = percentChange(avgLine[-31],avgLine[-13])
     cp19 = percentChange(avgLine[-31],avgLine[-12])
     cp20= percentChange(avgLine[-31],avgLine[-11])
-	
+
     cp21 = percentChange(avgLine[-31],avgLine[-10])
     cp22 = percentChange(avgLine[-31],avgLine[-9])
     cp23 = percentChange(avgLine[-31],avgLine[-8])
@@ -224,7 +222,7 @@ def currentPattern():
 
 
 def graphRawFX():
-    
+
     fig=plt.figure(figsize=(10,7))
     ax1 = plt.subplot2grid((40,40), (0,0), rowspan=40, colspan=40)
     ax1.plot(date,bid)
@@ -242,7 +240,7 @@ def graphRawFX():
 
 
 
-    
+
 def patternRecognition():
     ########
     plotPatAr = []
@@ -259,7 +257,7 @@ def patternRecognition():
         sim8 = 100.00 - abs(percentChange(eachPattern[7], patForRec[7]))
         sim9 = 100.00 - abs(percentChange(eachPattern[8], patForRec[8]))
         sim10 = 100.00 - abs(percentChange(eachPattern[9], patForRec[9]))
-            
+
         sim11 = 100.00 - abs(percentChange(eachPattern[10], patForRec[10]))
         sim12 = 100.00 - abs(percentChange(eachPattern[11], patForRec[11]))
         sim13 = 100.00 - abs(percentChange(eachPattern[12], patForRec[12]))
@@ -270,7 +268,7 @@ def patternRecognition():
         sim18 = 100.00 - abs(percentChange(eachPattern[17], patForRec[17]))
         sim19 = 100.00 - abs(percentChange(eachPattern[18], patForRec[18]))
         sim20 = 100.00 - abs(percentChange(eachPattern[19], patForRec[19]))
-            
+
         sim21 = 100.00 - abs(percentChange(eachPattern[20], patForRec[20]))
         sim22 = 100.00 - abs(percentChange(eachPattern[21], patForRec[21]))
         sim23 = 100.00 - abs(percentChange(eachPattern[22], patForRec[22]))
@@ -284,17 +282,17 @@ def patternRecognition():
 
 
 
-        
+
         howSim = (sim1+sim2+sim3+sim4+sim5+sim6+sim7+sim8+sim9+sim10
                   +sim11+sim12+sim13+sim14+sim15+sim16+sim17+sim18+sim19+sim20
                   +sim21+sim22+sim23+sim24+sim25+sim26+sim27+sim28+sim29+sim30)/30.00
 
         if howSim > 75:
-            
+
             patdex = patternAr.index(eachPattern)
             #print patdex
             patFound = 1
-            
+
             #print '##################################'
             #print '##################################'
             xp = [1,2,3,4,5,6,7,8,9,10,11,12,13,14,15,16,17,18,19,20,21,22,23,24,25,26,27,28,29,30]
@@ -313,15 +311,15 @@ def patternRecognition():
 
     if patFound == 1:
         fig = plt.figure(figsize=(10,6))
-        
+
         for eachPatt in plotPatAr:
             plt.plot(xp, eachPatt)
         plt.plot(xp, patForRec, '#54fff7', linewidth = 3)
         plt.grid(True)
         plt.title('Pattern Recognition')
         plt.show()
-            
-            
+
+
 
 
 dataLength = int(bid.shape[0])
@@ -339,7 +337,7 @@ while toWhat < dataLength:
     performanceAr = []
     patForRec = []
 
-                
+
     patternStorage()
     currentPattern()
     patternRecognition()
@@ -347,4 +345,3 @@ while toWhat < dataLength:
     print 'Entire processing took:',totalEnd,'seconds'
     #moveOn = raw_input('press ENTER to continue...')
     toWhat += 1
-    

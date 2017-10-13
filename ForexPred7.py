@@ -1,6 +1,4 @@
-'''
-main issue here was to global patforrec. youll probs forget. 
-'''
+
 
 import matplotlib
 import matplotlib.pyplot as plt
@@ -47,12 +45,12 @@ def patternStorage():
     comparing success rates.'''
 
     startTime = time.time()
-    
-    
+
+
     x = len(avgLine)-30
     y = 11
     currentStance = 'none'
-    
+
     while y < x:
         pattern = []
         p1 = percentChange(avgLine[y-10], avgLine[y-9])
@@ -101,7 +99,7 @@ def patternStorage():
 
         patternAr.append(pattern)
         performanceAr.append(futureOutcome)
-        
+
         y+=1
     #####
     endTime = time.time()
@@ -117,7 +115,7 @@ def patternStorage():
 def currentPattern():
     mostRecentPoint = avgLine[-1]
 
-    
+
 
     cp1 = percentChange(avgLine[-11],avgLine[-10])
     cp2 = percentChange(avgLine[-11],avgLine[-9])
@@ -145,12 +143,12 @@ def currentPattern():
 
 
 def graphRawFX():
-    
+
     fig=plt.figure(figsize=(10,7))
     ax1 = plt.subplot2grid((40,40), (0,0), rowspan=40, colspan=40)
     ax1.plot(date,bid)
     ax1.plot(date,ask)
-    
+
     #ax1.plot(date,((bid+ask)/2))
     #ax1.plot(date,percentChange(ask[0],ask),'r')
     ax1.xaxis.set_major_formatter(mdates.DateFormatter('%Y-%m-%d %H:%M:%S'))
@@ -171,7 +169,7 @@ def graphRawFX():
 
 
 
-    
+
 def patternRecognition():
     for eachPattern in patternAr:
         sim1 = 100.00 - abs(percentChange(eachPattern[0], patForRec[0]))
@@ -189,7 +187,7 @@ def patternRecognition():
         if howSim > 70:
             patdex = patternAr.index(eachPattern)
             print patdex
-            
+
             print '##################################'
             print '##################################'
             print '##################################'
@@ -204,14 +202,13 @@ def patternRecognition():
             print '##################################'
             print '##################################'
             print '##################################'
-            
 
 
 
-            
+
+
 patternStorage()
 currentPattern()
 patternRecognition()
 totalEnd = time.time()-totalStart
 print 'Entire processing took:',totalEnd,'seconds'
-    
